@@ -27,10 +27,10 @@ const App = () => {
 
 	return (
 		<View style={styles.container}>
-			<View style={styles.titleContainer}>
-				<Image src={'../assets/planet.png'} style={styles.planet} />
-				<Text style={styles.title}>Xplore</Text>
-			</View>
+			<View style={styles.logo}>
+            <Image source={require('../assets/planet.png')} style={styles.logoImage} />
+            <Text style={styles.logoText}>Xplore</Text>
+        </View>
 			<Text style={styles.subTitle}>Blaze your trail!</Text>
 			<View style={styles.inputContainer}>
 				<Text style={styles.inputTitle}>Email</Text>
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		fontSize: 64,
-		paddingTop: 90,
+		paddingTop: 70,
 		color: '#FFFFFF',
 		fontWeight: 'medium',
 	},
@@ -148,6 +148,26 @@ const styles = StyleSheet.create({
 		fontSize: 32,
 		color: '#FFFFFF',
 	},
+	logo: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		position: 'relative', // Make the logo container relative
+		justifyContent: 'center', // Center elements horizontally
+	
+	  },
+	  logoImage: {
+		width: 75,
+		height: 75,
+		position: 'absolute', // Make the image absolute
+		top: 15, // Position at the top
+		left: '30%', // Position horizontally at the center
+		marginLeft: -127, // Offset left by half the image width
+	  },
+	  logoText: {
+		fontSize: 64,
+		color: '#fff',
+		fontFamily: 'Jura-Regular',
+	  },
 })
 
 export default App
