@@ -7,6 +7,12 @@
 				{
 					"fonts": ["./assets/fonts/Jura-Regular.ttf"]
 				}
+			],
+			[
+				"expo-location",
+				{
+					"locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+				}
 			]
 		],
 		"scheme": "xplorer",
@@ -23,7 +29,10 @@
 		},
 		"assetBundlePatterns": ["**/*"],
 		"ios": {
-			"supportsTablet": true
+			"supportsTablet": true,
+			"infoPlist": {
+				"UIBackgroundModes": ["location", "fetch", "remote-notification"]
+			}
 		},
 		"android": {
 			"adaptiveIcon": {

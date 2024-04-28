@@ -1,28 +1,48 @@
+import { Stack } from 'expo-router/stack'
+import { useState, useContext } from 'react'
+import { useFonts } from 'expo-font'
+import { AuthContext } from '../firebase/AuthProvider'
 import {
+	StyleSheet,
 	View,
+	Image,
 	Text,
 	TextInput,
-	Button,
-	StyleSheet,
 	Pressable,
-	Image,
 } from 'react-native'
-import { useState } from 'react'
-import { useFonts } from 'expo-font'
 
-const LoginPage = () => {
+export const Auth = () => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+	const { user, register, login } = useContext(AuthContext)
+	const [fontsLoaded, fontError] = useFonts({
+		'Jura-Regular': require('../assets/fonts/Jura-Regular.ttf'),
+	})
 
-	const handleSignIn = () => {
-		console.log('Sign In pressed!')
+	if (!fontsLoaded && !fontError) {
+		return null
 	}
 
-	return (
+	const handleSignIn = () => {
+		login(email, password)
+	}
+
+	const handleSignUp = () => {
+		register(email, password)
+	}
+
+	return user ? (
+		<Stack>
+			<Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+		</Stack>
+	) : (
 		<View style={styles.container}>
-			<View style={styles.titleContainer}>
-				<Image src={'../assets/planet.png'} style={styles.planet} />
-				<Text style={styles.title}>Xplore</Text>
+			<View style={styles.logo}>
+				<Image
+					source={require('../assets/planet.png')}
+					style={styles.logoImage}
+				/>
+				<Text style={styles.logoText}>Xplore</Text>
 			</View>
 			<Text style={styles.subTitle}>Blaze your trail!</Text>
 			<View style={styles.inputContainer}>
@@ -53,7 +73,7 @@ const LoginPage = () => {
 				</Pressable>
 			</View>
 			<View>
-				<Pressable style={styles.signUpButton} onPress={handleSignIn}>
+				<Pressable style={styles.signUpButton} onPress={handleSignUp}>
 					<Text style={styles.buttonText}>{'Sign Up'}</Text>
 				</Pressable>
 			</View>
@@ -71,9 +91,9 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		fontSize: 64,
-		paddingTop: 90,
+		paddingTop: 70,
 		color: '#FFFFFF',
-		fontWeight: 'Medium',
+		fontWeight: 'medium',
 	},
 	planet: {
 		width: 50,
@@ -83,13 +103,13 @@ const styles = StyleSheet.create({
 		fontSize: 32,
 		paddingTop: 68,
 		color: '#FFFFFF',
-		fontWeight: 'Medium',
+		fontWeight: 'medium',
 		marginBottom: 38,
 	},
 	inputTitle: {
 		fontSize: 24,
 		color: '#FFFFFF',
-		fontWeight: 'Medium',
+		fontWeight: 'medium',
 		marginBottom: 8,
 	},
 	input: {
@@ -141,6 +161,23 @@ const styles = StyleSheet.create({
 		fontSize: 32,
 		color: '#FFFFFF',
 	},
+	logo: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		position: 'relative', // Make the logo container relative
+		justifyContent: 'center', // Center elements horizontally
+	},
+	logoImage: {
+		width: 75,
+		height: 75,
+		position: 'absolute', // Make the image absolute
+		top: 15, // Position at the top
+		left: '30%', // Position horizontally at the center
+		marginLeft: -127, // Offset left by half the image width
+	},
+	logoText: {
+		fontSize: 64,
+		color: '#fff',
+		fontFamily: 'Jura-Regular',
+	},
 })
-
-export default LoginPage

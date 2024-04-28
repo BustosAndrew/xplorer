@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react'
 import {
 	View,
@@ -12,10 +11,9 @@ import {
 } from 'react-native'
 import { useFonts } from 'expo-font'
 
-
 export default function Leaderboard() {
 	const [fontsLoaded, fontError] = useFonts({
-		'Jura-Regular': require('../assets/fonts/Jura-Regular.ttf'),
+		'Jura-Regular': require('../../assets/fonts/Jura-Regular.ttf'),
 	})
 
 	if (!fontsLoaded && !fontError) {
@@ -27,28 +25,33 @@ export default function Leaderboard() {
 		{ rank: 3, name: 'Heisenberg', points: 17000 },
 		{ rank: 4, name: 'Dr Luke', points: 16027 },
 		{ rank: 5, name: 'Lucy MacLean', points: 15039 },
-	  ];
+	]
 	return (
 		<View style={styles.container}>
 			<View style={styles.wrapper}>
-			<Image source={require('../assets/earth.png')} style={styles.world} />
+				<Image
+					source={require('../../assets/earth.png')}
+					style={styles.world}
+				/>
 				<Text style={styles.title}>Leaderboard</Text>
 			</View>
 			<ScrollView style={styles.listContainer}>
-			<View style = {styles.wrapper}>
-				<Text style = {styles.categoryRank}>Rank</Text>
-				<Text style = {styles.categoryPoints}>Points</Text>
-			</View>
-		<View>
-			{users.map((user,index) => <View style={styles.wrapper}>
-            <View key={index} style={styles.insideContainer}>
-			 <Text style={styles.userText}>{user.rank}</Text>
-			 <Text style={styles.userText}>{user.name}</Text>
-			 <Text style={styles.userText}>{user.points}</Text>
-			</View>
-          </View>)}
-        </View>
-      </ScrollView>
+				<View style={styles.wrapper}>
+					<Text style={styles.categoryRank}>Rank</Text>
+					<Text style={styles.categoryPoints}>Points</Text>
+				</View>
+				<View>
+					{users.map((user, index) => (
+						<View key={index} style={styles.wrapper}>
+							<View key={index} style={styles.insideContainer}>
+								<Text style={styles.userText}>{user.rank}</Text>
+								<Text style={styles.userText}>{user.name}</Text>
+								<Text style={styles.userText}>{user.points}</Text>
+							</View>
+						</View>
+					))}
+				</View>
+			</ScrollView>
 		</View>
 	)
 }
@@ -61,15 +64,15 @@ const styles = StyleSheet.create({
 	wrapper: {
 		flexDirection: 'row',
 		alignItems: 'center',
-	  },
-	  listContainer: {
+	},
+	listContainer: {
 		backgroundColor: '#C4C4C4',
 		marginTop: 20,
 		marginLeft: 20,
 		marginRight: 20,
 		borderRadius: 10,
-	  },
-	  insideContainer: {
+	},
+	insideContainer: {
 		backgroundColor: '#E55934',
 		width: '90%',
 		height: 100,
@@ -84,36 +87,31 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		shadowColor: '#000',
 		elevation: 10,
-	  },
-	  categoryRank:{	
+	},
+	categoryRank: {
 		fontSize: 24,
 		padding: 10,
 		marginLeft: 15,
 		fontFamily: 'Jura-Regular',
-
-	  },
-	  categoryPoints:{	
+	},
+	categoryPoints: {
 		fontSize: 24,
 		padding: 10,
 		marginLeft: '48%',
 		fontFamily: 'Jura-Regular',
-
-
-	  },
-	  userText: {
+	},
+	userText: {
 		fontSize: 24,
 		fontFamily: 'Jura-Regular',
-
-	  },
+	},
 	title: {
 		paddingTop: 30,
 		fontSize: 32,
 		color: '#fff',
 		textAlign: 'center',
 		fontFamily: 'Jura-Regular',
-
 	},
-	world:{
+	world: {
 		marginTop: 40,
 		marginLeft: 55,
 		marginRight: 15,
