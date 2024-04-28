@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@expo-google-fonts/jura": "^0.2.3",
+    "@google/generative-ai": "^0.8.0",
     "expo": "~50.0.14",
     "expo-constants": "~15.4.6",
     "expo-image-picker": "~14.7.1",
