@@ -1,115 +1,172 @@
-import { useState, useEffect } from 'react'
-import {
-	View,
-	Text,
-	TextInput,
-	Button,
-	StyleSheet,
-	Pressable,
-	Image,
-} from 'react-native'
+import {useEffect} from 'react';
+import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
 
-export const LoginPage = () => {
-	const [email, setEmail] = useState('')
-	const [password, setPassword] = useState('')
-	const [fontsLoaded, setFontsLoaded] = useState(false)
+const HistoryPage = ({ navigation }) => {
+	
+  const historyData = [
+    {
+      id: 1,
+      date: '04/25/2024',
+      location: 'ARC Pavilion',
+      xp: 50,
+	  image: "https://imgs.search.brave.com/MDUvyxMEF6ddhV-KLYVfnjoxSg3KHNBxEpV8VwlyMxo/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTc3/MzM2ODk2L3Bob3Rv/L2Nvb2tpZXMuanBn/P3M9NjEyeDYxMiZ3/PTAmaz0yMCZjPWg3/WW9meE04RXpHeS1R/WnAyVmstRU1rek1E/c2dFRXBQNWJZaUZt/OTJnZms9"
+    },
+    {
+      id: 2,
+      date: '04/20/2024',
+      location: 'Galaxy Museum',
+      xp: 75, 
+	  image: "map.png"
+    },
+  ];
 
-	const handleSignIn = () => {
-		console.log('Sign In pressed!')
-		// Implement your sign in logic here
-	}
-
+  const renderHistoryItem = ({ item }) => {
+	const url = item.image;
+	console.log(item.image)
 	return (
-		<View style={styles.container}>
-			<View style={styles.headerContainer}>
-				<Text style={styles.title}>Xplore</Text>
-				<Text style={styles.subTitle}>History</Text>
-			</View>
-			<View style={styles.infoContainer}>
-				<Text style={styles.infoText}>Visited: 04/27/2024</Text>
-				<Text style={styles.infoText}>XP: 100</Text>
-			</View>
-			<View style={styles.imageContainer}>
-				{/* <Image
-					source={require('../assets/arc_pavilion.png')}
-					style={styles.image}
-				/> */}
-			</View>
-			{fontsLoaded && ( // Conditionally render elements that use Jura font (if applicable)
-				<View style={styles.inputContainer}>
-					<Text style={styles.inputText}>Email</Text>
-					<TextInput
-						style={styles.inputField}
-						value={email}
-						onChangeText={setEmail}
-						placeholder='Email'
-						autoCapitalize='none'
-					/>
-					<Text style={styles.inputText}>Password</Text>
-					<TextInput
-						style={styles.inputField}
-						value={password}
-						onChangeText={setPassword}
-						placeholder='Password'
-						secureTextEntry={true}
-					/>
-				</View>
-			)}
-			<View style={styles.buttonContainer}>
-				<Pressable style={styles.signInButton} onPress={handleSignIn}>
-					<Text style={styles.buttonText}>Sign In</Text>
-				</Pressable>
-				<Pressable style={styles.signUpButton} onPress={handleSignIn}>
-					<Text style={styles.buttonText}>Sign Up</Text>
-				</Pressable>
-			</View>
+    <View style={styles.historyItem}>
+      {/* <Image source={{uri: url}} style={styles.historyItemImage}/> */}
+      <View style={styles.historyItemInfo}>
+		<View style={styles.locationText}>
+			<Text style={styles.historyItemLocation}>{item.location}</Text>
 		</View>
-	)
-}
+        <View style={styles.imageContainer}>
+			<Image source={{uri: url}} style={styles.historyItemImage}/>
+        </View>
+		<View style = {styles.rowContainer}>
+			<Text style={styles.flexStart}>{item.date}</Text>	
+			<Text style={styles.flexEnd}>XP: {item.xp}</Text>
+		</View>
+      </View>
+    </View>
+  )};
+
+  return (
+    <View style={styles.container}>
+      <View marginTop = {33} style={styles.logo}>
+        <Image source={require('../assets/planet.png')} style={styles.logoImage} />
+        <Text style={styles.logoText}>Xplore</Text>
+      </View>
+      <View style={styles.topContainer}>
+        <Image source={require('../assets/map.png')} style={styles.mapIcon}/>
+        <Text style={styles.pageTitle}>History</Text>
+      </View>
+      <View style={styles.bottomContainer}>
+        <FlatList
+          data={historyData}
+          renderItem={renderHistoryItem}
+          keyExtractor={item => item.id.toString()}
+        />
+      </View>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#5793E2',
-		alignItems: 'center',
-		justifyContent: 'center',
-		padding: 20,
-	},
-	headerContainer: {
-		marginBottom: 20,
-	},
-	title: {
-		fontSize: 64,
-		color: '#FFFFFF',
-		// Use Jura font if you've integrated it (refer to font loading section)
-	},
-	subTitle: {
-		fontSize: 32,
-		color: '#FFFFFF',
-		// Use Jura font if you've integrated it (refer to font loading section)
-	},
-	infoContainer: {
-		marginBottom: 20,
-	},
-	infoText: {
-		fontSize: 16,
-		color: '#FFFFFF',
-		marginBottom: 5,
-	},
-	imageContainer: {
-		marginBottom: 20,
-	},
-	image: {
-		width: 200,
-		height: 200,
-		borderRadius: 10,
-	},
-	inputContainer: {
-		marginBottom: 40,
-	},
-	inputText: {
-		fontSize: 20,
-		color: '#FFFFFF',
-		marginBottom: 10,
-	},
-})
+  container: {
+	backgroundColor: '#5793EC',
+  },
+  logo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  logoImage: {
+    width: 75,
+    height: 75,
+    top: 7,
+    left: '30%',
+    marginLeft: 20,
+  },
+  logoText: {
+    fontSize: 64,
+    color: '#fff',
+    zIndex: 2,
+  },
+  topContainer: {
+	flexDirection: 'row',
+	alignItems: 'center',
+	marginTop: 46,
+    backgroundColor: '#5793EC',
+    paddingHorizontal: 13,
+  },
+  bottomContainer: {
+	height: 1000,
+    backgroundColor: '#003459',
+    borderRadius: 30,
+	alignItems: 'center',
+  },
+  pageIcon: {
+	marginTop: 33,
+  },
+  mapIcon: {
+	width: 56,
+	height: 56,
+	marginTop: 20,
+	marginLeft: 10,
+  },
+  pageTitle: {
+    fontSize: 40,
+    fontWeight: 'bold',
+	marginTop: 46,
+	color: '#FFFFFF',
+	marginBottom: 19,
+	marginLeft: 13,
+  },
+  historyItem: {
+	marginTop: 36,
+	width: 392,
+	height: 275,
+	backgroundColor: '#FFFFFF',
+    borderBottomWidth: 2,
+    borderBottomColor: '#000000',
+	borderTopColor: '#000000',
+	borderRadius: 30,
+	paddingTop: 20,
+	paddingLeft: 20,
+  },
+  imageContainer: {
+	alignItems: 'center',
+	marginTop: 30,
+  },
+  historyItemImage: {
+    width: 100,
+    height: 100,
+    marginRight: 15,
+  },
+  historyItemInfo: {
+    flex: 1,
+  },
+  historyItemDate: {
+    fontSize: 18,
+	color: '#E55934',
+  },
+  historyItemLocation: {
+    fontSize: 24,
+    marginBottom: 5,
+	borderBottomColor: '#000000',
+	color: '#E55934',
+  },
+  historyItemXP: {
+    fontSize: 14,
+	color: '#E55934',
+  },
+  rowContainer: {
+	flexDirection: 'row',
+	justifyContent: 'space-between',
+	marginTop: 40, 
+  },
+  
+  flexStart: {
+	alignSelf: 'flex-start',
+	fontSize: 24,
+	color: '#E55934',
+  },
+  flexEnd: {
+	marginRight: 20,
+	fontSize: 24,
+	color: '#E55934',
+  },
+});
+
+export default HistoryPage;
