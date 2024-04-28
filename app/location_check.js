@@ -1,51 +1,67 @@
-import {
-	View,
-	Text,
-	TextInput,
-	Button,
-	StyleSheet,
-	Pressable,
-	Image,
-	ScrollView,
-} from 'react-native'
-import { useState } from 'react'
-import { useFonts } from 'expo-font'
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Pressable, Image, ScrollView } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
+import CheckInModal from './checkInModal';
 
-const VisitDetails = ({ landmark, location, date, description, xp, mapImage, logoImage }) => {
+const VisitDetails = ({ landmark, location, description, xp, mapImage }) => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [image, setImage] = useState(null);
 
-    const checkIn = () => {
-		console.log('Check in pressed!')
-	}
+  const checkIn = async () => {
+    try {
+      const { status } = await ImagePicker.requestCameraPermissionsAsync();
+      if (status !== 'granted') {
+        alert('Camera permission denied');
+        return;
+      }
+
+      const result = await ImagePicker.launchCameraAsync({
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 1,
+      });
+
+      if (!result.cancelled) {
+        console.log(result);
+        setImage(result.assets[0].uri);
+        
+        setModalVisible(true);
+      }
+    } catch (error) {
+      console.error('Error capturing image:', error);
+      alert('Error capturing image. Please try again.');
+    }
+  };
 
   return (
-	<ScrollView contentContainerStyle = {styles.container}>
-		<View marginTop = {33} style={styles.logo}>
-			<Image source={require('../assets/planet.png')} style={styles.logoImage} />
-			<Text style={styles.logoText}>Xplore</Text>
-		</View>
-		<View style={styles.content}>
-			<Text style={styles.visitDate}>Visiting</Text>
-			<View style = {styles.locationContainer}>
-				<View style = {styles.location}>
-					<Image source = {require('../assets/locationPin.png')} style = {styles.pin}/>
-					<Text style={styles.landmark}>{landmark}</Text>
-					<Text style={styles.location}>{location}</Text>
-				</View>       
-				<Image source={mapImage} style={styles.mapImage}/>
-				<Text style={styles.description}>{description}</Text>
-				<View style={styles.xpEarned}>
-					<Text style={styles.xpText}>Landmark XP</Text>
-					<Text style={styles.xpValue}>+{xp}</Text>
-				</View>
-			</View>
-			<View>
-				<Pressable style={styles.checkInButton} onPress={checkIn}>
-					<Text style={styles.buttonText}>{'Check In'}</Text>
-					<Image source = {require('../assets/pinRed.png')}style = {styles.pinRed}/>
-				</Pressable>
-			</View>
-		</View>
-	</ScrollView>
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.logo}>
+        <Image source={require('../assets/planet.png')} style={styles.logoImage} />
+        <Text style={styles.logoText}>Xplore</Text>
+      </View>
+      <View style={styles.content}>
+        <Text style={styles.visitDate}>Visiting</Text>
+        <View style={styles.locationContainer}>
+          <View style={styles.location}>
+            <Image source={require('../assets/locationPin.png')} style={styles.pin} />
+            <Text style={styles.landmark}>{landmark}</Text>
+            <Text style={styles.locationText}>{location}</Text>
+          </View>
+          <Image source={mapImage} style={styles.mapImage} />
+          <Text style={styles.description}>{description}</Text>
+          <View style={styles.xpEarned}>
+            <Text style={styles.xpText}>Landmark XP</Text>
+            <Text style={styles.xpValue}>+{xp}</Text>
+          </View>
+        </View>
+        <View>
+          <Pressable style={styles.checkInButton} onPress={checkIn}>
+            <Text style={styles.buttonText}>Check In</Text>
+          </Pressable>
+        </View>
+      </View>
+      {modalVisible && <CheckInModal image={image} onClose={() => setModalVisible(false)}/>}
+    </ScrollView>
   );
 };
 
@@ -56,49 +72,54 @@ const styles = StyleSheet.create({
   logo: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    position: 'relative',
+    justifyContent: 'left', 
   },
   logoImage: {
     width: 75,
     height: 75,
-    top: 7,
-    left: '30%',
-    marginLeft: 20,
+    top: 10,
+    left: '72%',
   },
   logoText: {
     fontSize: 64,
     color: '#fff',
-    zIndex: 2,
+    fontFamily: 'Jura-Regular',
   },
   content: {
     paddingHorizontal: 20,
     marginTop: 30,
+    marginBottom: 20,
   },
   locationContainer: {
-	backgroundColor: '#003459',
-	borderRadius: 30,
-  },
-  landmark: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
+    backgroundColor: '#003459',
+    borderRadius: 30,
+    padding: 20,
+    marginBottom: 20,
   },
   location: {
-    fontSize: 20,
-    fontWeight: 'bold',
-	marginTop: 29,
-    color: '#FFFFFF',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   pin: {
-	marginTop: 34,
-	marginLeft: 87,
+    width: 20,
+    height: 20,
+    marginRight: 10,
+  },
+  landmark: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+  },
+  locationText: {
+    fontSize: 18,
+    color: '#FFFFFF',
   },
   visitDate: {
     fontSize: 32,
-	fontWeight: 'bold',
+    fontWeight: 'bold',
     color: '#FFFFFF',
     marginBottom: 16,
-	marginLeft: 18,
   },
   mapImage: {
     width: '100%',
@@ -108,46 +129,54 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 16,
     color: '#FFFFFF',
-	fontWeight: 'bold',
+    fontWeight: 'bold',
     lineHeight: 22,
     marginBottom: 10,
   },
   xpEarned: {
-    flexDirection: 'column',
+    flexDirection: 'row',
     alignItems: 'center',
   },
   xpText: {
-    fontSize: 32,
+    fontSize: 24,
     color: '#FFFFFF',
     marginRight: 10,
   },
   xpValue: {
-    fontSize: 32,
+    fontSize: 24,
     color: '#FFFFFF',
-	marginBottom: 34,
   },
   checkInButton: {
-	flexDirection: 'row',
     backgroundColor: '#003459',
     borderRadius: 20,
-	width: 328,
-	height: 64,
-    paddingVertical: 7,
-	marginLeft: 20,
-	marginTop: 29,
-	marginBottom: 40,
-	justifyContent: 'center',
+    width: '100%',
+    height: 60,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   buttonText: {
     color: '#FFFFFF',
-    fontSize: 32,
-    textAlign: 'center',
+    fontSize: 24,
+    fontWeight: 'bold',
   },
-  pinRed: {
-	width: 30,
-	height: 30,
-	marginTop: 8,
-	marginLeft: 8,
+  modalContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  capturedImage: {
+    width: 150,
+    height: 150,
+    marginBottom: 20,
+  },
+  closeButton: {
+    backgroundColor: '#003459',
+    borderRadius: 20,
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+  },
+  closeButtonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
   },
 });
 
