@@ -1,46 +1,62 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import {
+	View,
+	Text,
+	TextInput,
+	Button,
+	StyleSheet,
+	Pressable,
+	Image,
+	ScrollView,
+} from 'react-native'
+import { useState } from 'react'
+import { useFonts } from 'expo-font'
 
-const VisitDetails = ({ location, date, description, xp, mapImage, logoImage }) => {
+const VisitDetails = ({ landmark, location, date, description, xp, mapImage, logoImage }) => {
+
+    const checkIn = () => {
+		console.log('Check in pressed!')
+	}
+
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Image source={logoImage} style={styles.logo} />
-        <Text style={styles.pageTitle}>Xplore</Text>
-      </View>
-      <View style={styles.content}>
-        <Text style={styles.locationTitle}>{location}</Text>
-        <Text style={styles.visitDate}>Visited: {date}</Text>
-        <Image source={mapImage} style={styles.mapImage} />
-        <Text style={styles.description}>{description}</Text>
-        <View style={styles.xpEarned}>
-          <Text style={styles.xpText}>XP Earned:</Text>
-          <Text style={styles.xpValue}>{xp}</Text>
-        </View>
-        <View style={styles.buttonContainer}>
-          <Text style={styles.buttonText}>Check In</Text>
-        </View>
-      </View>
-    </View>
+	<ScrollView contentContainerStyle = {styles.container}>
+		<View marginTop = {33} style={styles.logo}>
+			<Image source={require('../assets/planet.png')} style={styles.logoImage} />
+			<Text style={styles.logoText}>Xplore</Text>
+		</View>
+		<View style={styles.content}>
+			<Text style={styles.visitDate}>Visiting</Text>
+			<View style = {styles.locationContainer}>
+				<View style = {styles.location}>
+					<Image source = {require('../assets/locationPin.png')} style = {styles.pin}/>
+					<Text style={styles.landmark}>{landmark}</Text>
+					<Text style={styles.location}>{location}</Text>
+				</View>       
+				<Image source={mapImage} style={styles.mapImage}/>
+				<Text style={styles.description}>{description}</Text>
+				<View style={styles.xpEarned}>
+					<Text style={styles.xpText}>Landmark XP</Text>
+					<Text style={styles.xpValue}>+{xp}</Text>
+				</View>
+			</View>
+			<View>
+				<Pressable style={styles.checkInButton} onPress={checkIn}>
+					<Text style={styles.buttonText}>{'Check In'}</Text>
+					<Image source = {require('../assets/pinRed.png')}style = {styles.pinRed}/>
+				</Pressable>
+			</View>
+		</View>
+	</ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#F2F2F2',
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingTop: 30,
+    backgroundColor: '#5793EC',
   },
   logo: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-
   },
   logoImage: {
     width: 75,
@@ -54,26 +70,35 @@ const styles = StyleSheet.create({
     color: '#fff',
     zIndex: 2,
   },
-  pageTitle: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    marginLeft: 15,
-    color: '#333',
-  },
   content: {
     paddingHorizontal: 20,
     marginTop: 30,
   },
-  locationTitle: {
-    fontSize: 24,
+  locationContainer: {
+	backgroundColor: '#003459',
+	borderRadius: 30,
+  },
+  landmark: {
+    fontSize: 32,
     fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 15,
+    color: '#FFFFFF',
+  },
+  location: {
+    fontSize: 20,
+    fontWeight: 'bold',
+	marginTop: 29,
+    color: '#FFFFFF',
+  },
+  pin: {
+	marginTop: 34,
+	marginLeft: 87,
   },
   visitDate: {
-    fontSize: 16,
-    color: '#777',
-    marginBottom: 15,
+    fontSize: 32,
+	fontWeight: 'bold',
+    color: '#FFFFFF',
+    marginBottom: 16,
+	marginLeft: 18,
   },
   mapImage: {
     width: '100%',
@@ -82,34 +107,47 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 16,
-    color: '#333',
+    color: '#FFFFFF',
+	fontWeight: 'bold',
     lineHeight: 22,
-    marginBottom: 20,
+    marginBottom: 10,
   },
   xpEarned: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
-    marginBottom: 20,
   },
   xpText: {
-    fontSize: 16,
-    color: '#333',
+    fontSize: 32,
+    color: '#FFFFFF',
     marginRight: 10,
   },
   xpValue: {
-    fontSize: 16,
-    color: '#00C853',
+    fontSize: 32,
+    color: '#FFFFFF',
+	marginBottom: 34,
   },
-  buttonContainer: {
-    backgroundColor: '#00C853',
-    borderRadius: 10,
-    paddingHorizontal: 20,
-    paddingVertical: 15,
+  checkInButton: {
+	flexDirection: 'row',
+    backgroundColor: '#003459',
+    borderRadius: 20,
+	width: 328,
+	height: 64,
+    paddingVertical: 7,
+	marginLeft: 20,
+	marginTop: 29,
+	marginBottom: 40,
+	justifyContent: 'center',
   },
   buttonText: {
-    color: '#fff',
-    fontSize: 18,
+    color: '#FFFFFF',
+    fontSize: 32,
     textAlign: 'center',
+  },
+  pinRed: {
+	width: 30,
+	height: 30,
+	marginTop: 8,
+	marginLeft: 8,
   },
 });
 

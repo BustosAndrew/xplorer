@@ -163,7 +163,6 @@ const styles = StyleSheet.create({
 	color: '#E55934',
   },
   flexEnd: {
-	alignSelf: 'flex-end',
 	marginRight: 20,
 	fontSize: 24,
 	color: '#E55934',
