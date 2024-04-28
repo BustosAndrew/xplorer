@@ -13,9 +13,6 @@ import { useFonts } from 'expo-font'
 const LoginPage = () => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
-	const [fontsLoaded, fontError] = useFonts({
-		'Jura-Regular': require('../assets/fonts/Jura-Regular.ttf'),
-	})
 
 	const handleSignIn = () => {
 		console.log('Sign In pressed!')

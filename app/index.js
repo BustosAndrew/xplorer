@@ -17,6 +17,10 @@ const App = () => {
 		'Jura-Regular': require('../assets/fonts/Jura-Regular.ttf'),
 	})
 
+	if (!fontsLoaded && !fontError) {
+		return null
+	}
+
 	const handleSignIn = () => {
 		console.log('Sign In pressed!')
 	}
