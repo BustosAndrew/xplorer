@@ -64,27 +64,26 @@ export default function Profile() {
 	}, [status])
 
 	return (
-		<SafeAreaView>
-			<View style={styles.container}>
-				<View style={styles.profile}>
+		<View style={styles.container}>
+			<View style={styles.profile}>
+				<Image
+					source={require('../../assets/profileAvatar.png')}
+					style={styles.avatar}
+				/>
+				<Text style={styles.name}>{user?.email}</Text>
+				<View style={styles.wrapper}>
+					<Text style={styles.location}>Hill Valley, California </Text>
 					<Image
-						source={require('../../assets/profileAvatar.png')}
-						style={styles.avatar}
+						source={require('../../assets/pinIcon.png')}
+						style={styles.pinIcon}
 					/>
-					<Text style={styles.name}>Marty McFly</Text>
-					<View style={styles.wrapper}>
-						<Text style={styles.location}>Hill Valley, California </Text>
-						<Image
-							source={require('../../assets/pinIcon.png')}
-							style={styles.pinIcon}
-						/>
-					</View>
-					<Text style={styles.levelText}>Level 5</Text>
 				</View>
-				<View style={styles.levelBackground}>
-					<Text style={styles.level}></Text>
-				</View>
-				{/* <View>
+				<Text style={styles.levelText}>Level 5</Text>
+			</View>
+			<View style={styles.levelBackground}>
+				<Text style={styles.level}></Text>
+			</View>
+			{/* <View>
 					<Text style={styles.achievementTitle}>Achievements</Text>
 				</View>
 				<View style={styles.listContainer}>
@@ -116,8 +115,7 @@ export default function Profile() {
 						</View>
 					</View>
 				</View> */}
-			</View>
-		</SafeAreaView>
+		</View>
 	)
 }
 
