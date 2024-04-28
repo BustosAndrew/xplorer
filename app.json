@@ -1,6 +1,7 @@
 {
   "expo": {
     "plugins": [
+        "expo-router",
         [
         "expo-font",
       {
@@ -8,6 +9,7 @@
       }
       ]
     ],
+    "scheme": "xplorer",
     "name": "xplorer",
     "slug": "xplorer",
     "version": "1.0.0",
