@@ -7,7 +7,7 @@ export default function App() {
       <View style={styles.profile}>
         <Image source={require('./assets/profileAvatar.png')} style={styles.avatar} />
         <Text style={styles.name}>Marty McFly</Text>
-        <View style={styles.locationWrapper}>
+        <View style={styles.wrapper}>
           <Text style={styles.location}>Hill Valley, California</Text>
           <Image source={require('./assets/pinIcon.png')} style={styles.pinIcon} />
         </View>
@@ -16,16 +16,23 @@ export default function App() {
       <View style={styles.levelBackground}>
         <Text style={styles.level}></Text>
       </View>
-      <View style={styles.listContainer}>
-        <Text style={styles.listContainer}>This belongs in a museum!</Text>
-        <Text style={styles.listContainer}>Mr Worldwide</Text>
-        <Text style={styles.listContainer}>Around the World in 80 Days</Text>
+      <View>
+        <Text>Achievements!</Text>
       </View>
       <View style={styles.listContainer}>
-        <Text style={styles.listTitle}>Leaderboard</Text>
-        <Text style={styles.listTitle}>Location Sharing</Text>
-        <View style={styles.toggleContainer}>
-          <Text style={styles.toggleText}>Enable</Text>
+        <View>
+          <View style={styles.wrapper}>
+            <Image source={require('./assets/circle1.png')} style={styles.circles} />
+            <Text style={styles.insideContainer}>This belongs in a museum!</Text>
+          </View>
+          <View style={styles.wrapper}>
+            <Image source={require('./assets/circle2.png')} style={styles.circles} />
+            <Text style={styles.insideContainer}>Mr Worldwide</Text>
+          </View>
+          <View style={styles.wrapper}>
+            <Image source={require('./assets/circle3.png')} style={styles.circles} />
+            <Text style={styles.insideContainer}>Around the World in 80 Days</Text>
+          </View>
         </View>
       </View>
     </View>
@@ -47,13 +54,20 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 50,
   },
-  locationWrapper: {
+  wrapper: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   pinIcon: {
     width: 22,
     height: 23,
+  },
+  circles: {
+    marginLeft: 15,
+    marginTop: 15,
+    marginBottom: 15,
+    width: 47,
+    height: 47,
   },
   name: {
     color: '#fff',
@@ -93,19 +107,13 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
     borderRadius: 10,
-    padding: 20,
   },
-  listTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 10,
+  insideContainer: {
+    backgroundColor: '#fff',
+    padding: 10,
+    borderRadius: 10,
   },
-  toggleContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-  },
-  toggleText: {
-    fontSize: 16,
-    color: '#ffc107',
-  },
+  achievementTitle: {
+
+  }
 });
