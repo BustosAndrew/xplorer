@@ -1,5 +1,13 @@
 {
   "expo": {
+    "plugins": [
+      [
+       "expo-font",
+       {
+         "fonts": ["./assets/fonts/Jura-Regular.ttf"]
+       }
+      ]
+     ],
     "name": "xplorer",
     "slug": "xplorer",
     "version": "1.0.0",
