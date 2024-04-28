@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Pressable, Image } from 'react-native';
 import { Font } from 'expo';
 
@@ -6,25 +6,10 @@ import { Font } from 'expo';
 const LoginPage = () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const [fontsLoaded, fontError] = useFonts({'Jura-Regular': require('./assets/fonts/Jura-Regular.ttf')});
 
   const handleSignIn = () => {
     console.log('Sign In pressed!');
   };
-
-  useEffect(() => {
-    const loadFonts = async () => {
-      try {
-        await Font.loadAsync({
-          'Jura': require('./assets/fonts/Jura-Regular.ttf'),
-        });
-        setFontsLoaded(true);
-      } catch (error) {
-        console.error('Error loading fonts:', error);
-      }
-    };
-    loadFonts();
-  }, []);
 
   return (
     <View style={styles.container}>
