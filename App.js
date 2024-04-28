@@ -7,9 +7,10 @@ export default function App() {
       <View style={styles.profile}>
         <Image source={require('./assets/profileAvatar.png')} style={styles.avatar} />
         <Text style={styles.name}>Marty McFly</Text>
-        <Text style={styles.location}>Hill Valley, California</Text>
-      </View>
-      <View>
+        <View style={styles.locationWrapper}>
+          <Text style={styles.location}>Hill Valley, California</Text>
+          <Image source={require('./assets/pinIcon.png')} style={styles.pinIcon} />
+        </View>
         <Text style={styles.levelText}>Level 5</Text>
       </View>
       <View style={styles.levelBackground}>
@@ -45,6 +46,14 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
+  },
+  locationWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  pinIcon: {
+    width: 22,
+    height: 23,
   },
   name: {
     color: '#fff',
