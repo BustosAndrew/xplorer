@@ -40,18 +40,21 @@ const HistoryPage = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-		<Text style>Xplore</Text>
-		<View style={styles.topContainer}>
-			<Image source={require('../assets/map.png')} style={styles.mapIcon}/>
-			<Text style={styles.pageTitle}>History</Text>
-		</View>
-		<View style={styles.bottomContainer}>
-			<FlatList
-			data={historyData}
-			renderItem={renderHistoryItem}
-			keyExtractor={item => item.id.toString()}
-			/>
-		</View>
+      <View style={styles.logo}>
+        <Image source={require('../assets/planet.png')} style={styles.logoImage} />
+        <Text style={styles.logoText}>Xplore</Text>
+      </View>
+      <View style={styles.topContainer}>
+        <Image source={require('../assets/map.png')} style={styles.mapIcon}/>
+        <Text style={styles.pageTitle}>History</Text>
+      </View>
+      <View style={styles.bottomContainer}>
+        <FlatList
+          data={historyData}
+          renderItem={renderHistoryItem}
+          keyExtractor={item => item.id.toString()}
+        />
+      </View>
     </View>
   );
 };
@@ -59,6 +62,24 @@ const HistoryPage = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
 	backgroundColor: '#5793EC',
+  },
+  logo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+
+  },
+  logoImage: {
+    width: 75,
+    height: 75,
+    top: 7,
+    left: '30%',
+    marginLeft: 20,
+  },
+  logoText: {
+    fontSize: 64,
+    color: '#fff',
+    zIndex: 2,
   },
   topContainer: {
 	flexDirection: 'row',
@@ -99,9 +120,6 @@ const styles = StyleSheet.create({
 	borderRadius: 30,
 	paddingTop: 20,
 	paddingLeft: 20,
-  },
-  locationText: {
-
   },
   historyItemImage: {
     width: 100,
