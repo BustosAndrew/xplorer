@@ -17,6 +17,7 @@ export const Location = ({
 	description,
 	xp,
 	setShowLocation,
+	anim,
 }) => {
 	const [modalVisible, setModalVisible] = useState(false)
 	const [image, setImage] = useState(null)
@@ -65,7 +66,7 @@ export const Location = ({
 							style={styles.pin}
 						/>
 						<Text style={styles.landmark}>{name}</Text>
-						<Text style={styles.locationText}>{location}</Text>
+						{/* <Text style={styles.locationText}>{location}</Text> */}
 					</View>
 					{lottieViews[anim]}
 					<Text style={styles.description}>{description}</Text>

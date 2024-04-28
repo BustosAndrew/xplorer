@@ -33,7 +33,8 @@ const HistoryPage = () => {
 					xp: userXp,
 					description: location.message,
 					anim: location.animation,
-					location: location.location,
+					location: location.location || 'Unknown',
+					id: location.id,
 				}
 			})
 			setHistoryData(history)
@@ -51,7 +52,7 @@ const HistoryPage = () => {
 						<Text style={styles.historyItemLocation}>{item.location}</Text>
 					</View>
 					<View style={styles.rowContainer}>
-						<Text style={styles.flexStart}>{item.date}</Text>
+						<Text style={styles.flexStart}>{item.date?.toString()}</Text>
 						<Text style={styles.flexEnd}>XP: {item.xp}</Text>
 					</View>
 					<Pressable
@@ -60,7 +61,7 @@ const HistoryPage = () => {
 							setShowLocation(true)
 						}}
 					>
-						View Location
+						<Text>View Location</Text>
 					</Pressable>
 				</View>
 			</View>
@@ -87,7 +88,7 @@ const HistoryPage = () => {
 				<FlatList
 					data={historyData}
 					renderItem={renderHistoryItem}
-					keyExtractor={(item) => item.id.toString()}
+					keyExtractor={(item) => item?.id}
 				/>
 			</View>
 		</View>
