@@ -1,6 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Pressable, Image } from 'react-native';
-import { Font } from 'expo';
+import { StatusBar } from 'expo-status-bar';
+import { useFonts } from 'expo-font';
 
 
 const LoginPage = () => {
@@ -65,6 +66,19 @@ const LoginPage = () => {
           <Text style={styles.buttonText}>{"Sign Up"}</Text>
         </Pressable>
       </View>
+      <View>
+        <Pressable style={styles.leaderButton} onPress={leadRout}>
+          <Text style={styles.buttonText}>{"Leaderboards"}</Text>
+        </Pressable>
+      </View>
+      <View>
+        <Text style={styles.achievementTitle}>Achievements</Text>
+      </View>
+      <View>
+        <Pressable style={styles.enablerButton} onPress={enabler}>
+          <Text style={styles.buttonText}>{"Enable"}</Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
@@ -112,6 +126,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingLeft: 20,
   },
+  levelText: {
+    color: '#E55934',
+    fontSize: 24,
+    marginTop: 15,
+    marginRight: 270,
+    fontWeight: 'bold',
   forgotPasswordText: {
     fontSize: 12,
     textAlign: 'left',
@@ -149,6 +169,38 @@ const styles = StyleSheet.create({
     fontSize: 32,
     color: '#FFFFFF'
   },
+  achievementTitle: {
+    fontSize: 32,
+    color: '#fff',
+    marginTop: 15,
+    marginLeft: 20,
+  },
+  leaderButton: {
+    width: 328,
+    height: 64,
+    marginTop: 15,
+    marginLeft: 35,
+    backgroundColor: '#003459',
+    color: '#FFFFFF', 
+    borderRadius: 20, 
+    justifyContent: 'center',
+  },
+  enablerButton: {
+    backgroundColor: '#003459',
+    color: '#FFFFFF',
+    marginTop: 15,
+    marginLeft: 35,
+    width: 328,
+    height: 64,
+    borderRadius: 20, 
+    justifyContent: 'center',
+  },
+  buttonText:{
+    color: '#fff',
+    fontSize: 32,
+    textAlign: 'center',
+  },
+  
 });
 
 export default LoginPage;
