@@ -86,9 +86,8 @@ export default function Profile() {
 				<Text
 					style={{
 						height: 20,
-						width: `${xp / 100 + 2}%`,
+						width: `${xp / 100 + 5}%`,
 						borderRadius: 10,
-						marginRight: 100,
 						backgroundColor: '#E55934',
 					}}
 				></Text>
