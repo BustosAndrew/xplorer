@@ -7,16 +7,16 @@ const HistoryPage = ({ navigation }) => {
     {
       id: 1,
       date: '04/25/2024',
-      location: 'Arc Pavilion',
+      location: 'ARC Pavilion',
       xp: 50,
-	  image: "../assets/map.png"
+	  image: "https://imgs.search.brave.com/MDUvyxMEF6ddhV-KLYVfnjoxSg3KHNBxEpV8VwlyMxo/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTc3/MzM2ODk2L3Bob3Rv/L2Nvb2tpZXMuanBn/P3M9NjEyeDYxMiZ3/PTAmaz0yMCZjPWg3/WW9meE04RXpHeS1R/WnAyVmstRU1rek1E/c2dFRXBQNWJZaUZt/OTJnZms9"
     },
     {
       id: 2,
       date: '04/20/2024',
       location: 'Galaxy Museum',
       xp: 75, 
-	  image: "../assets/map.png"
+	  image: "map.png"
     },
   ];
 
@@ -25,11 +25,14 @@ const HistoryPage = ({ navigation }) => {
 	console.log(item.image)
 	return (
     <View style={styles.historyItem}>
-      {/*<Image source={{uri: url}} style={styles.historyItemImage}/>*/}
+      {/* <Image source={{uri: url}} style={styles.historyItemImage}/> */}
       <View style={styles.historyItemInfo}>
 		<View style={styles.locationText}>
 			<Text style={styles.historyItemLocation}>{item.location}</Text>
 		</View>
+        <View style={styles.imageContainer}>
+			<Image source={{uri: url}} style={styles.historyItemImage}/>
+        </View>
 		<View style = {styles.rowContainer}>
 			<Text style={styles.flexStart}>{item.date}</Text>	
 			<Text style={styles.flexEnd}>XP: {item.xp}</Text>
@@ -40,7 +43,7 @@ const HistoryPage = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.logo}>
+      <View marginTop = {33} style={styles.logo}>
         <Image source={require('../assets/planet.png')} style={styles.logoImage} />
         <Text style={styles.logoText}>Xplore</Text>
       </View>
@@ -67,7 +70,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-
   },
   logoImage: {
     width: 75,
@@ -84,7 +86,7 @@ const styles = StyleSheet.create({
   topContainer: {
 	flexDirection: 'row',
 	alignItems: 'center',
-	marginTop: 200,
+	marginTop: 46,
     backgroundColor: '#5793EC',
     paddingHorizontal: 13,
   },
@@ -100,11 +102,13 @@ const styles = StyleSheet.create({
   mapIcon: {
 	width: 56,
 	height: 56,
+	marginTop: 20,
+	marginLeft: 10,
   },
   pageTitle: {
-    fontSize: 32,
+    fontSize: 40,
     fontWeight: 'bold',
-	marginTop: 44,
+	marginTop: 46,
 	color: '#FFFFFF',
 	marginBottom: 19,
 	marginLeft: 13,
@@ -121,6 +125,10 @@ const styles = StyleSheet.create({
 	paddingTop: 20,
 	paddingLeft: 20,
   },
+  imageContainer: {
+	alignItems: 'center',
+	marginTop: 30,
+  },
   historyItemImage: {
     width: 100,
     height: 100,
@@ -136,17 +144,17 @@ const styles = StyleSheet.create({
   historyItemLocation: {
     fontSize: 24,
     marginBottom: 5,
+	borderBottomColor: '#000000',
 	color: '#E55934',
   },
   historyItemXP: {
-
     fontSize: 14,
 	color: '#E55934',
   },
   rowContainer: {
 	flexDirection: 'row',
 	justifyContent: 'space-between',
-	marginTop: 170, 
+	marginTop: 40, 
   },
   
   flexStart: {
@@ -154,7 +162,6 @@ const styles = StyleSheet.create({
 	fontSize: 24,
 	color: '#E55934',
   },
-  
   flexEnd: {
 	alignSelf: 'flex-end',
 	marginRight: 20,
