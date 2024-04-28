@@ -1,7 +1,6 @@
-import { useEffect, useContext } from 'react'
+import { useEffect, useContext, useState } from 'react'
 import { useFonts } from 'expo-font'
 import { View, Text, StyleSheet, Image } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import {
 	useBackgroundPermissions,
 	getCurrentPositionAsync,
@@ -25,8 +24,10 @@ export default function Profile() {
 		return null
 	}
 	const [status, requestPermission] = useBackgroundPermissions()
+	const [xp, setXp] = useState(0)
+	const [level, setLevel] = useState(0)
 	const { user } = useContext(AuthContext)
-	const { myFS, myStorage } = useContext(FirebaseContext)
+	const { myFS } = useContext(FirebaseContext)
 
 	useEffect(() => {
 		;(async () => {
@@ -39,6 +40,7 @@ export default function Profile() {
 				const userData = userDocSnap.data()
 				const userLocations = userData.locations
 				const userXp = userData.xp + 10
+				setXp(userXp)
 				const locationName = await reverseGeocodeAsync(location)
 				const message = await locationMessage(locationName[0].name)
 				const animName = await locationAnimation(locationName[0].name)
@@ -78,10 +80,18 @@ export default function Profile() {
 						style={styles.pinIcon}
 					/>
 				</View>
-				<Text style={styles.levelText}>Level 5</Text>
+				<Text style={styles.levelText}>Level {level}</Text>
 			</View>
 			<View style={styles.levelBackground}>
-				<Text style={styles.level}></Text>
+				<Text
+					style={{
+						height: 20,
+						width: `${xp / 100 + 2}%`,
+						borderRadius: 10,
+						marginRight: 100,
+						backgroundColor: '#E55934',
+					}}
+				></Text>
 			</View>
 			{/* <View>
 					<Text style={styles.achievementTitle}>Achievements</Text>
@@ -192,12 +202,6 @@ const styles = StyleSheet.create({
 		fontSize: 24,
 		marginTop: 5,
 		fontFamily: 'Jura-Regular',
-	},
-	level: {
-		backgroundColor: '#E55934',
-		borderRadius: 10,
-		marginRight: 100,
-		height: 20,
 	},
 	levelBackground: {
 		backgroundColor: '#FFFFFF',
